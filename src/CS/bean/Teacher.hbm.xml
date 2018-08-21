@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="CS.bean.Teacher" table="teacher">
+		<id name="Tid" column="tid" type="java.lang.String">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="Tname" type="java.lang.String">
+			<column name="tname" length="20" ></column>
+		</property>
+		
+		<property name="Password1" type="java.lang.String">
+			<column name="password1" length="20"></column>
+		</property>
+		<property name="Password2" type="java.lang.String">
+			<column name="password2" length="20"></column>
+		</property>
+		<!-- 配置多对一关联关系 -->
+		<many-to-one name="Tcollege" class="CS.bean.College" column="coid" cascade="save-update" lazy="false"></many-to-one>
+		
+		<!-- 配置一对多关联关系 -->
+		
+		<set name="Tcourses" table="course" >
+			<key column="tid"></key>
+			<one-to-many class="CS.bean.Course"/>
+		</set>		
+	</class>
+</hibernate-mapping>

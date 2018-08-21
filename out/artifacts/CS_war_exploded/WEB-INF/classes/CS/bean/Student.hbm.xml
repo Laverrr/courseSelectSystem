@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="CS.bean.Student" table="student">
+		<id name="Sid" column="sid" type="java.lang.String">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="Sname" type="java.lang.String">
+			<column name="sname" length="20" ></column>
+		</property>
+		<property name="Password1" type="java.lang.String">
+			<column name="password1" length="20"></column>
+		</property>
+		<property name="Password2" type="java.lang.String">
+			<column name="password2" length="20"></column>
+		</property>
+		
+		<many-to-one name="Scollege" class="CS.bean.College" column="coid" cascade="save-update" lazy="false"></many-to-one>
+		
+		
+		<!-- 配置多对多关联关系 -->
+		<set name="course" table="stu_cou" cascade="all" lazy="false">
+			<key column="nsid"></key>
+			<many-to-many class="CS.bean.Course" column="ncid"></many-to-many>
+		</set>
+		
+		
+	</class>
+</hibernate-mapping>

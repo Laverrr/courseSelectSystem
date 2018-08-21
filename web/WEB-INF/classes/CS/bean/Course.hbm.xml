@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="CS.bean.Course" table="course">
+		<id name="Cid" column="cid" type="java.lang.String">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="Cname" type="java.lang.String">
+			<column name="cname" length="20" ></column>
+		</property>
+		
+		
+		<!-- 配置一对多关联关系 -->
+		<many-to-one name="Ccollege" class="CS.bean.College" column="coid" cascade="save-update" lazy="false"></many-to-one>
+		
+		<many-to-one name="teacher" class="CS.bean.Teacher" column="tid" cascade="save-update" lazy="false"></many-to-one>
+		
+		<!-- 配置多对多关联关系 -->
+		<set name="students" table="stu_cou" cascade="all" >
+			<key column="ncid"></key>
+			<many-to-many class="CS.bean.Student" column="nsid"></many-to-many>
+		</set>
+		
+		
+		
+		
+		
+		
+		
+	</class>
+	
+</hibernate-mapping>

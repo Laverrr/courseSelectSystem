@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <constant name="struts.devMode" value="true" />
+
+    <package name="default" namespace="/" extends="struts-default">
+    
+    	<default-interceptor-ref name="defaultStack"></default-interceptor-ref>
+
+       <action name="StuLogin" class="CS.service.StudentAction">
+       			<result name="success" type="chain">StuCourseAction</result>
+       			<result name="input">/userLogin.jsp</result>
+       </action>
+       
+       <action name="StuLogout" class="CS.service.StudentAction" method="logout">
+       			<result>/userLogin.jsp</result>
+       </action>
+       
+       <action name="jumpStudentTable" class="CS.service.StudentAction" method="jumpStudentTable">
+       			<result type="redirect">StuCourseAction</result>
+       </action>
+       <action name="jumpTeacherTable" class="CS.service.TeacherAction" method="jumpTeacherTable">
+       			<result type="redirect">TeaCourseAction</result>
+       </action>
+       
+       <action name="TeaLogin" class="CS.service.TeacherAction">
+       			<result name="success" type="chain">TeaCourseAction</result>
+       			<result name="input">/userLogin.jsp</result>
+       </action>
+       
+       <action name="TeaLogout" class="CS.service.TeacherAction" method="logout">
+       			<result>/userLogin.jsp</result>
+       </action>
+       
+       <action name="AdminLogin" class="CS.service.AdminAction">
+       			<result name="success" type="chain">FindCourseAction</result>
+       			<result name="input">/userLogin.jsp</result>
+       </action>
+       
+       <action name="TeaCourseAction" class="CS.service.TeaCourseAction">
+       			<result>/Teatable.jsp</result>
+       </action>
+       
+       <action name="StuCourseAction" class="CS.service.StuCourseAction">
+       			<result>/Stutable.jsp</result>
+       </action>
+       
+         <action name="FindStudentAction" class="CS.service.FindStudentAction">
+       			<result>/ManaStudent.jsp</result>
+       </action>
+         <action name="FindTeacherAction" class="CS.service.FindTeacherAction">
+       			<result>/ManaTeacher.jsp</result>
+       </action>
+         <action name="FindCourseAction" class="CS.service.FindCourseAction">
+       			<result>/ManaCourse.jsp</result>
+       </action>
+         <action name="FindCollegeAction" class="CS.service.FindCollegeAction">
+       			<result>/ManaCollege.jsp</result>
+       </action>
+       <!-- 这里没有错误 -->
+       <action name="DelStudentAction" class="CS.service.DelStudentAction">
+       			<result type="redirect">FindStudentAction</result>
+       </action>
+       <action name="DelTeacherAction" class="CS.service.DelTeacherAction">
+       			<result type="redirect">FindTeacherAction</result>
+       </action>
+       <action name="DelCourseAction" class="CS.service.DelCourseAction">
+       			<result type="redirect">FindCourseAction</result>
+       </action>
+       <action name="DelCollegeAction" class="CS.service.DelCollegeAction">
+       			<result type="redirect">FindCollegeAction</result>
+       </action>
+       <action name="addCourseAction" class="CS.service.addCourseAction">
+       			<result type="redirect">FindCourseAction</result>
+       			<result name="input">/Create-Course.jsp</result>
+       </action>
+       
+       <action name="CreateStu" class="CS.service.CreateStuAction">
+       			<result>/userLogin.jsp</result>
+       			<result name ="error">/create-account.jsp</result>
+       </action>
+       
+        <action name="CreateTea" class="CS.service.CreateTeaAction">
+       			<result>/userLogin.jsp</result>
+       			<result name ="error">/create-account.jsp</result>
+       </action>
+        <action name="CreateCourse" class="CS.service.CreateCourseAction">
+       			<result>/Create-Course.jsp</result>
+       </action>
+        <action name="CreateUser" class="CS.service.CreateUserAction">
+       			<result>/Create-User.jsp</result>
+       			
+       </action>
+        <action name="CreateCollege" class="CS.service.CreateCollegeAction">
+       			<result type="redirect">FindCollegeAction</result>
+       			<result name="input">/Create-College.jsp</result>
+       </action>
+       
+        <action name="UserCreate" class="CS.service.UserCreateAction">
+       			<result name="student" type="chain">CreateStu</result>
+       			<result name ="teacher" type="chain">CreateTea</result>
+       			<result name="input">/Create-User.jsp</result>
+       </action>
+       
+       <action name="StuSelectAction" class="CS.service.StuSelectAction">
+       			<result type="redirect">StuSelectedAction</result>
+       </action>
+       
+		<action name="StuSelectedAction" class="CS.service.StuSelectedAction">
+				<result>/StuCourse.jsp</result>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		
+		<action name="StuCancelCourse" class="CS.service.StuCancelCourseAction">
+				<result type="redirect">StuSelectedAction</result>
+		</action>
+		
+		<action name="TeaSelectedAction" class="CS.service.TeaSelectedAction">
+				<result>/TeaCourse.jsp</result>
+				
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		
+		<action name="StuUpdateAction" class="CS.service.StuUpdateAction">
+				<result>/StuUpdate.jsp</result>
+		</action>    
+		  
+		<action name="TeaUpdateAction" class="CS.service.TeaUpdateAction">
+				<result>/TeaUpdate.jsp</result>
+		</action>      
+		
+		<action name="updateStu" class="CS.service.StuUpdateAction" method="update">
+			<result type="redirect">StuUpdateAction</result>
+			<result name="input">/StuUpdate.jsp</result>
+		</action>
+		<action name="updateTea" class="CS.service.TeaUpdateAction" method="update">
+			<result type="redirect">TeaUpdateAction</result>
+			<result name="input">/TeaUpdate.jsp</result>
+		</action>
+		<action name="updateCollege" class="CS.service.CollegeUpdateAction" method="update">
+			<result>/Update-College.jsp</result>
+		</action>
+		<action name="updateCollegeAction" class="CS.service.CollegeUpdateAction">
+			<result type="redirect">FindCollegeAction</result>
+		</action>
+		
+    </package>
+
+	
+
+</struts>
